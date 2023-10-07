@@ -1,46 +1,38 @@
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 import { FormWrapper } from "./FormWrapper"
+import { FormData } from "./type"
 
-type UserData = {
-  firstName: string
-  lastName: string
-  age: string
-}
-
-type UserFormProps = UserData & {
-  updateFields: (fields: Partial<UserData>) => void
-}
-
-export function UserForm({
-  firstName,
-  lastName,
-  age,
-  updateFields,
-}: UserFormProps) {
+export function UserForm(
+  {register,
+  errors
+  }:{
+  register:UseFormRegister<FormData>,
+  errors:FieldErrors<FormData>
+  }
+) {
   return (
     <FormWrapper title="User Details">
-      <label>First Name</label>
+      <label>First Namne </label>
       <input
         autoFocus
-        required
         type="text"
-        value={firstName}
-        onChange={e => updateFields({ firstName: e.target.value })}
+        {...register("firstName",{required:"First Name is required"})}
+        
       />
+      <span>{errors.firstName?.message}</span>
       <label>Last Name</label>
       <input
-        required
         type="text"
-        value={lastName}
-        onChange={e => updateFields({ lastName: e.target.value })}
+        {...register("lastName",{required:"Last Name is required"})}
       />
+      <span>{errors.lastName?.message}</span>
       <label>Age</label>
       <input
-        required
         min={1}
         type="number"
-        value={age}
-        onChange={e => updateFields({ age: e.target.value })}
+        {...register("age",{required:"age is required"})}
       />
+      <span>{errors.age?.message}</span>
     </FormWrapper>
   )
 }
