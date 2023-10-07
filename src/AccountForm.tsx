@@ -1,36 +1,29 @@
+import { FieldErrors, UseFormRegister } from "react-hook-form"
 import { FormWrapper } from "./FormWrapper"
+import { FormData } from "./type"
 
-type AccountData = {
-  email: string
-  password: string
-}
 
-type AccountFormProps = AccountData & {
-  updateFields: (fields: Partial<AccountData>) => void
-}
-
-export function AccountForm({
-  email,
-  password,
-  updateFields,
-}: AccountFormProps) {
+export function AccountForm({register,
+  errors
+  }:{
+  register:UseFormRegister<FormData>,
+  errors:FieldErrors<FormData>
+  }) {
   return (
     <FormWrapper title="Account Creation">
       <label>Email</label>
       <input
         autoFocus
-        required
-        type="email"
-        value={email}
-        onChange={e => updateFields({ email: e.target.value })}
+       type="email"
+        {...register("email",{required:"Email is required"})}
       />
+      <span>{errors.email?.message}</span>
       <label>Password</label>
       <input
-        required
         type="password"
-        value={password}
-        onChange={e => updateFields({ password: e.target.value })}
+        {...register("password",{required:"Password is required"})}
       />
+      <span>{errors.password?.message}</span>
     </FormWrapper>
   )
 }

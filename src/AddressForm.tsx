@@ -1,54 +1,40 @@
+import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form"
 import { FormWrapper } from "./FormWrapper"
+import { FormData } from "./type"
 
-type AddressData = {
-  street: string
-  city: string
-  state: string
-  zip: string
-}
-
-type AddressFormProps = AddressData & {
-  updateFields: (fields: Partial<AddressData>) => void
-}
-
-export function AddressForm({
-  street,
-  city,
-  state,
-  zip,
-  updateFields,
-}: AddressFormProps) {
+export function AddressForm({register,
+  errors
+  }:{
+  register:UseFormRegister<FormData>,
+  errors:FieldErrors<FormData>
+  }) {
   return (
     <FormWrapper title="Address">
       <label>Street</label>
       <input
         autoFocus
-        required
         type="text"
-        value={street}
-        onChange={e => updateFields({ street: e.target.value })}
+        {...register("address",{required:"address  is required"})}
       />
+      <span>{errors.address?.message}</span>
       <label>City</label>
       <input
-        required
         type="text"
-        value={city}
-        onChange={e => updateFields({ city: e.target.value })}
+        {...register("city",{required:"city  is required"})}
       />
+      <span>{errors.city?.message}</span>
       <label>State</label>
       <input
-        required
         type="text"
-        value={state}
-        onChange={e => updateFields({ state: e.target.value })}
+        {...register("state",{required:"state is required"})}
       />
+      <span>{errors.state?.message}</span>
       <label>Zip</label>
       <input
-        required
         type="text"
-        value={zip}
-        onChange={e => updateFields({ zip: e.target.value })}
+        {...register("zip",{required:"zip is required"})}
       />
+      <span>{errors.zip?.message}</span>
     </FormWrapper>
   )
 }

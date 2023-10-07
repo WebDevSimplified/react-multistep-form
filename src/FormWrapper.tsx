@@ -5,6 +5,7 @@ type FormWrapperProps = {
   children: ReactNode
 }
 
+
 export function FormWrapper({ title, children }: FormWrapperProps) {
   return (
     <>
@@ -12,11 +13,13 @@ export function FormWrapper({ title, children }: FormWrapperProps) {
         {title}
       </h2>
       <div
+        
         style={{
           display: "grid",
           gap: "1rem .5rem",
           justifyContent: "flex-start",
-          gridTemplateColumns: "auto minmax(auto, 400px)",
+          gridTemplateColumns: "400px",
+
         }}
       >
         {children}
